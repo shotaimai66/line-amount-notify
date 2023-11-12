@@ -1,0 +1,26 @@
+service: line-amount-notify
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: ruby3.2
+  stage: production
+  region: ap-northeast-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 'ce:GetCostAndUsage'
+          Resource: '*'
+
+functions:
+  notify:
+    handler: handler.notify
+    events:
+      - schedule:
+          name: my-daily-schedule-jst
+          description: 'This schedule runs every day at 10 AM JST'
+          rate: cron(0 1 * * ? *) # UTCで毎日1時（JSTで10時）
+          enabled: true
+
