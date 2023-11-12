@@ -14,5 +14,4 @@ sls deploy
 
 # todo
 - ローカルでデバックができるようにする
-- 環境変数の設定をserverless.ymlに記載する
 - コンテナ環境でsls deployを実行できるようにする

@@ -7,6 +7,10 @@ provider:
   runtime: ruby3.2
   stage: production
   region: ap-northeast-1
+  memorySize: 128
+  architecture: x86_64
+  environment:
+    LINE_TOKEN: ${ssm:/line-amount-notify/production/line-token}
   iam:
     role:
       statements:
