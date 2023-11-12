@@ -4,14 +4,31 @@
 
 # 開発
 - serverless frameworkでインフラを設定しております。
-- sls deploy後に、LINE_TOKENの環境変数の設定を行なってください。
-- ローカルでの実行は考慮してません。
 
 # コマンド
+## コマンド実行環境のbuild
 ```
-sls deploy
+# build
+docker compose build
+
+# コンテナの起動
+docker compose up -d
+
+# slsコンテナにbashでログイン
+docker compose exec sls bash --login
 ```
 
-# todo
-- ローカルでデバックができるようにする
-- コンテナ環境でsls deployを実行できるようにする
+## slsコンテナ内でのコマンド
+```
+# アプリケーションが配置されているディレクトリに移動
+cd /opt/app
+
+# アプリケーションの初期化
+sh init.sh
+
+# ローカルでのlambda関数実行
+sls invoke local --function notify
+
+# 本番デプロイ
+sls deploy --stage production
+```

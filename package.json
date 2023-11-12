@@ -1,6 +1,13 @@
 {
   "devDependencies": {
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-prune-plugin": "^2.0.2",
     "serverless-ruby-layer": "^1.7.0",
     "serverless-ruby-package": "^3.2.0"
-  }
+  },
+  "name": "app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:shotaimai66/line-amount-notify.git",
+  "license": "MIT"
 }

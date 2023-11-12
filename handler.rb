@@ -2,6 +2,7 @@ require 'aws-sdk-costexplorer'
 require 'net/http'
 require 'uri'
 require 'json'
+require 'dotenv/load'
 
 TOKEN = ENV['LINE_TOKEN'].freeze
   URL = 'https://notify-api.line.me/api/notify'.freeze

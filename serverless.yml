@@ -2,15 +2,18 @@ service: line-amount-notify
 
 frameworkVersion: '3'
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: ruby3.2
-  stage: production
+  stage: ${opt:stage, self:custom.defaultStage}
   region: ap-northeast-1
   memorySize: 128
   architecture: x86_64
   environment:
-    LINE_TOKEN: ${ssm:/line-amount-notify/production/line-token}
+    LINE_TOKEN: ${env:LINE_TOKEN}
+
   iam:
     role:
       statements:
@@ -18,20 +21,23 @@ provider:
           Action: 'ce:GetCostAndUsage'
           Resource: '*'
 
+custom:
+  defaultStage: local
+
 functions:
   notify:
     handler: handler.notify
     events:
-      - schedule:
-          name: my-daily-schedule-jst
-          description: 'This schedule runs every day at 10 AM JST'
-          rate: cron(0 1 * * ? *) # UTCで毎日1時（JSTで10時）
-          enabled: true
-      # - schedule: # (テスト用　毎分実行させる時はこちらを有効にする)
+      # - schedule:
       #     name: my-daily-schedule-jst
       #     description: 'This schedule runs every day at 10 AM JST'
-      #     rate: rate(1 minute)
+      #     rate: cron(0 1 * * ? *) # UTCで毎日1時（JSTで10時）
       #     enabled: true
+      - schedule: # (テスト用　毎分実行させる時はこちらを有効にする)
+          name: my-daily-schedule-jst
+          description: 'This schedule runs every day at 10 AM JST'
+          rate: rate(1 minute)
+          enabled: true
 
 package:
   exclude:
@@ -45,3 +51,18 @@ package:
     - README.md
     - serverless.yml
     - .env
+    - vendor
+    - Gemfile
+    - Gemfile.lock
+    - init.sh
+    - yarn.lock
+    - Dockerfile
+    - docker-compose.yml
+    - conf/**
+  include:
+    - handler.rb
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-ruby-layer
+  - serverless-prune-plugin
