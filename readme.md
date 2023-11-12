@@ -5,6 +5,11 @@
 # 開発
 - serverless frameworkでインフラを設定しております。
 
+# ローカル開発用
+```
+cp sample.env .env
+```
+
 # コマンド
 ## コマンド実行環境のbuild
 ```
