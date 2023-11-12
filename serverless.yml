@@ -23,4 +23,21 @@ functions:
           description: 'This schedule runs every day at 10 AM JST'
           rate: cron(0 1 * * ? *) # UTCで毎日1時（JSTで10時）
           enabled: true
+      # - schedule: # (テスト用　毎分実行させる時はこちらを有効にする)
+      #     name: my-daily-schedule-jst
+      #     description: 'This schedule runs every day at 10 AM JST'
+      #     rate: rate(1 minute)
+      #     enabled: true
 
+package:
+  exclude:
+    - .git/**
+    - .gitignore
+    - .serverless/**
+    - .serverless_plugins/**
+    - node_modules/**
+    - package-lock.json
+    - package.json
+    - README.md
+    - serverless.yml
+    - .env
